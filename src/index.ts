@@ -35,28 +35,8 @@ const MAX_EXPANDED_LEN = 20;
 const MAX_COLLAPSE_LEN = 20;
 const MAX_SHALLOW_LEN = 10;
 
-// from https://opensource.apple.com/source/WebInspectorUI/WebInspectorUI-7601.7.1/UserInterface/Base/Utilities.js.auto.html
-function isAncestor(n1: Node, n2: Node) {
-  if (!n2) {
-    return false;
-  }
-  let currentNode = n2.parentNode;
-  while (currentNode) {
-    if (n1 === currentNode) {
-      return true;
-    }
-    currentNode = currentNode.parentNode;
-  }
-
-  return false;
-}
-
-function isDescendant(n1: Node, n2: Node) {
-  return !!n2 && isAncestor(n2, n1);
-}
-
 function isSelfOrDescendant(n1: Node, n2: Node) {
-  return !!n2 && (n1 === n2 || isDescendant(n1, n2));
+  return !!n2 && n1.contains(n2)
 }
 
 // from https://github.com/observablehq/inspector/blob/master/src/collapsed.js
