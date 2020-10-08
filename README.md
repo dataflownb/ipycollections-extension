@@ -4,11 +4,9 @@
 
 A JupyterLab extension that provides a more interactive format for collections
 
-
 This extension is composed of a Python package named `ipycollections`
 for the IPython extension and a NPM package named `ipycollections-extension`
 for the frontend extension.
-
 
 ## Requirements
 
@@ -16,7 +14,7 @@ for the frontend extension.
 
 ## Install
 
-Note: You will need NodeJS to install the extension.
+Note: You will need NodeJS to install the extension. (If using conda, this can be done via `conda install nodejs`.)
 
 ```bash
 pip install ipycollections

@@ -26,3 +26,25 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+printer.py
+==========
+
+The code in printer.py is based on the code from
+https://github.com/ipython/ipython/blob/b361f8e9bc3d50b8de49310fb198893fe152fcb3/IPython/lib/pretty.py
+which is licensed under the "BSD 3-Clause License" and copyright IPython Development Team
+
+createRendermimePlugin
+======================
+
+The createRendermimePlugin method in src/index.ts is based on the code from
+https://github.com/jupyterlab/jupyterlab/blob/67de374d1522c60f0113d9b1f692661dd3166fb7/packages/application/src/mimerenderers.ts#L90-L164
+which is licensed under the "BSD 3-Clause License" and copyright Project Jupyter Contributors
+
+hasSelection
+============
+
+The hasSelection method in src/selection.ts is from
+https://github.com/observablehq/inspector/blob/87ce1e444bd1fa2ed24d7b62befee7d6c6012a12/src/collapsed.js#L8-L16
+which is licensed under the "ISC" license and copyright Observable, Inc.
+

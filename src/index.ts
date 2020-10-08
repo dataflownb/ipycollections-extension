@@ -1,25 +1,12 @@
-import { WidgetTracker } from '@jupyterlab/apputils';
-
 import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
-
-import { LabIcon } from '@jupyterlab/ui-components';
-
-import {
-  JupyterFrontEnd,
-  // JupyterFrontEndPlugin,
-  IMimeDocumentTracker
-} from '@jupyterlab/application';
-
-import {
-  MimeDocumentFactory,
-  DocumentRegistry,
-  MimeDocument
-} from '@jupyterlab/docregistry';
 
 import { JSONObject } from '@lumino/coreutils';
 
 import { Widget } from '@lumino/widgets';
+
+import { hasSelection } from './selection';
+import { createRendermimePlugin } from './mimerenderers';
 
 /**
  * The default mime type for the extension.
@@ -34,22 +21,6 @@ const CLASS_NAME = 'mimerenderer-ipycollections';
 const MAX_EXPANDED_LEN = 20;
 const MAX_COLLAPSE_LEN = 20;
 const MAX_SHALLOW_LEN = 10;
-
-function isSelfOrDescendant(n1: Node, n2: Node) {
-  return !!n2 && n1.contains(n2)
-}
-
-// from https://github.com/observablehq/inspector/blob/master/src/collapsed.js
-function hasSelection(elem: Node) {
-  const sel = window.getSelection();
-  return (
-    sel !== null &&
-    sel.type === 'Range' &&
-    (sel.containsNode(elem, true) ||
-      (sel.anchorNode !== null && isSelfOrDescendant(sel.anchorNode, elem)) ||
-      (sel.focusNode !== null && isSelfOrDescendant(sel.focusNode, elem)))
-  );
-}
 
 /**
  * A widget for rendering IPython object.
@@ -79,7 +50,9 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
   ): Node {
     if (!shallow) {
       const span = parentNode.appendChild(document.createElement('span'));
-      span.className = expanded ? 'ipycollections-expanded' : 'ipycollections-collapsed';
+      span.className = expanded
+        ? 'ipycollections-expanded'
+        : 'ipycollections-collapsed';
       span.appendChild(
         document.createTextNode(expanded ? '\u25BC ' : '\u25B6 ')
       );
@@ -331,7 +304,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         );
         if (mimeType) {
           const renderer = this._rendermime.createRenderer(mimeType);
-          renderer.renderModel(model).then(()=> {
+          renderer.renderModel(model).then(() => {
             if (renderer.node !== null) {
               const n = parentNode.appendChild(document.createElement('span'));
               n.appendChild(renderer.node);
@@ -429,98 +402,6 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
 
   private _mimeType: string;
   private _rendermime: IRenderMimeRegistry | null;
-}
-
-// code duplicated from @jupyterlab/application/mimerenderers.ts
-// with slight modifications to pass rendermime to factory
-function createRendermimePlugin(
-  item: IRenderMime.IExtension
-) {
-  return {
-    id: item.id,
-    requires: [IMimeDocumentTracker, IRenderMimeRegistry],
-    autoStart: true,
-    activate: (
-      app: JupyterFrontEnd,
-      tracker: WidgetTracker<MimeDocument>,
-      rendermime: IRenderMimeRegistry
-    ) => {
-      // Add the mime renderer.
-      const rendererFactory = createRendererFactory(rendermime);
-      if (item.rank !== undefined) {
-        rendermime.addFactory(rendererFactory, item.rank);
-      } else {
-        rendermime.addFactory(rendererFactory);
-      }
-
-      // Handle the widget factory.
-      if (!item.documentWidgetFactoryOptions) {
-        return;
-      }
-
-      const registry = app.docRegistry;
-      let options: IRenderMime.IDocumentWidgetFactoryOptions[] = [];
-      if (Array.isArray(item.documentWidgetFactoryOptions)) {
-        options = item.documentWidgetFactoryOptions;
-      } else {
-        options = [
-          item.documentWidgetFactoryOptions as IRenderMime.IDocumentWidgetFactoryOptions
-        ];
-      }
-
-      if (item.fileTypes) {
-        item.fileTypes.forEach(ft => {
-          if (ft.icon) {
-            // upconvert the contents of the icon field to a proper LabIcon
-            ft = { ...ft, icon: LabIcon.resolve({ icon: ft.icon }) };
-          }
-
-          app.docRegistry.addFileType(ft as DocumentRegistry.IFileType);
-        });
-      }
-
-      options.forEach(option => {
-        const toolbarFactory = option.toolbarFactory
-          ? (w: MimeDocument) => option.toolbarFactory!(w.content.renderer)
-          : undefined;
-        const factory = new MimeDocumentFactory({
-          renderTimeout: item.renderTimeout,
-          dataType: item.dataType,
-          rendermime,
-          modelName: option.modelName,
-          name: option.name,
-          primaryFileType: registry.getFileType(option.primaryFileType),
-          fileTypes: option.fileTypes,
-          defaultFor: option.defaultFor,
-          defaultRendered: option.defaultRendered,
-          toolbarFactory
-        });
-        registry.addWidgetFactory(factory);
-
-        factory.widgetCreated.connect((sender, widget) => {
-          // Notify the widget tracker if restore data needs to update.
-          widget.context.pathChanged.connect(() => {
-            void tracker.save(widget);
-          });
-          void tracker.add(widget);
-        });
-      });
-    }
-  };
-}
-
-// /**
-//  * A mime renderer factory for IPython object data.
-//  */
-function createRendererFactory(
-  registry: IRenderMimeRegistry
-): IRenderMime.IRendererFactory {
-  return {
-    safe: true,
-    mimeTypes: [MIME_TYPE],
-    createRenderer: (options: IRenderMime.IRendererOptions) =>
-      new OutputWidget(registry, options)
-  };
 }
 
 export const bogusRendererFactory: IRenderMime.IRendererFactory = {
