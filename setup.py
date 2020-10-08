@@ -55,7 +55,7 @@ with open("README.md", "r") as fh:
 setup_args = dict(
     name=name,
     version=version,
-    url="https://github.com/dakoop/ipycollections-extension",
+    url="https://github.com/dataflownb/ipycollections-extension",
     author="David Koop",
     description="A JupyterLab extension that provides a more interactive format for collections",
     long_description= long_description,
