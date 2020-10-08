@@ -37,7 +37,7 @@ which is licensed under the "BSD 3-Clause License" and copyright IPython Develop
 createRendermimePlugin
 ======================
 
-The createRendermimePlugin method in src/index.ts is based on the code from
+The createRendermimePlugin method in src/mimerenderers.ts is based on the code from
 https://github.com/jupyterlab/jupyterlab/blob/67de374d1522c60f0113d9b1f692661dd3166fb7/packages/application/src/mimerenderers.ts#L90-L164
 which is licensed under the "BSD 3-Clause License" and copyright Project Jupyter Contributors
 
