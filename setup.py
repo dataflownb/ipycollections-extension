@@ -56,6 +56,7 @@ setup_args = dict(
     name=name,
     version=version,
     url="https://github.com/dataflownb/ipycollections-extension",
+    download_url="https://github.com/dataflownb/ipycollections-extension/archive/v0.1.0.tar.gz",
     author="David Koop",
     description="A JupyterLab extension that provides a more interactive format for collections",
     long_description= long_description,
