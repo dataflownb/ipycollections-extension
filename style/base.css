@@ -1,0 +1,17 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+span.ipycollections-expanded {
+    cursor: pointer;
+}
+
+div.ipycollections-field {
+    margin-left: 1em;
+}
+
+span.ipycollections-collapsed {
+    cursor: pointer;
+}
