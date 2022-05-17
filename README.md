@@ -1,7 +1,5 @@
 # ipycollections-extension
 
-![Github Actions Status](https://github.com/dakoop/ipycollections-extension/workflows/Build/badge.svg)
-
 A JupyterLab extension that provides a more interactive format for collections
 
 This extension is distributed as a prebuilt extension.
