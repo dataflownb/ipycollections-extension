@@ -24,6 +24,31 @@ To remove the extension, execute:
 pip uninstall ipycollections
 ```
 
+## Usage
+
+In a JupyterLab notebook, use the following line to enable the extension
+
+```
+%load_ext ipycollections
+``` 
+
+If you would like the extension to be enabled by default, edit your 
+[configuration file](https://ipython.readthedocs.io/en/stable/development/config.html) 
+(often `~/.ipython/profile_default/ipython_config.py`) to include `ipycollections` as an extension:
+
+```
+c.InteractiveShellApp.extensions = [
+    'ipycollections',
+    # ...
+]
+```
+
+If you wish to disable the extension, use:
+
+```
+%unload_ext ipycollecitons
+```
+
 ## Contributing
 
 ### Development install
