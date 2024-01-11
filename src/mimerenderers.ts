@@ -46,11 +46,11 @@ import { OutputWidget } from './index';
  */
 function createRendererFactory(
   registry: IRenderMimeRegistry,
-  mimeType: string
+  mimeType: string | undefined
 ): IRenderMime.IRendererFactory {
   return {
     safe: true,
-    mimeTypes: [mimeType],
+    mimeTypes: mimeType ? [mimeType] : ['text/plain'],
     createRenderer: (options: IRenderMime.IRendererOptions) =>
       new OutputWidget(registry, options)
   };
@@ -73,7 +73,7 @@ export function createRendermimePlugin(item: IRenderMime.IExtension) {
       // Add the mime renderer.
       const rendererFactory = createRendererFactory(
         rendermime,
-        item.fileTypes[0].mimeTypes[0]
+        item.fileTypes?.[0].mimeTypes?.[0]
       );
       if (item.rank !== undefined) {
         rendermime.addFactory(rendererFactory, item.rank);

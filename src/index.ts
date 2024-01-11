@@ -62,7 +62,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         }
         event.stopPropagation();
         const newSpan = this.processData(data, !expanded, false);
-        parentNode.parentNode.replaceChild(newSpan, parentNode);
+        parentNode.parentNode?.replaceChild(newSpan, parentNode);
       });
     }
 
@@ -164,7 +164,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
           }
           event.stopPropagation();
           const newParentNode = this.processData(data, !expanded, false);
-          parentNode.parentNode.replaceChild(newParentNode, parentNode);
+          parentNode?.parentNode?.replaceChild(newParentNode, parentNode);
         });
       } else {
         parentNode.appendChild(document.createTextNode(startDelimInner));
@@ -178,7 +178,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         printNum = Math.min(len, MAX_COLLAPSE_LEN);
       }
       const it = data.v.entries();
-      let next = { value: undefined as Record<string, any>, done: true };
+      let next = { value: undefined as unknown as Record<string, any>, done: true };
       const printValue = (itValue: Record<string, any>) => {
         let n: Element;
         if (expanded) {
@@ -204,22 +204,26 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
           button.textContent = 'More...';
           button.addEventListener('click', (e: Event) => {
             e.stopPropagation();
-            parentNode.insertBefore(
-              printValue(next),
-              parentNode.lastChild.previousSibling
-            );
-            for (let i = 0; !(next = it.next()).done && i < printNum - 1; ++i) {
+            if (parentNode.lastChild?.previousSibling) {
               parentNode.insertBefore(
                 printValue(next),
                 parentNode.lastChild.previousSibling
               );
-            }
-            if (next.done) {
-              parentNode.removeChild(parentNode.lastChild.previousSibling);
-              // remove last comma
-              parentNode.lastChild.previousSibling.removeChild(
-                parentNode.lastChild.previousSibling.lastChild
-              );
+              for (let i = 0; !(next = it.next()).done && i < printNum - 1; ++i) {
+                parentNode.insertBefore(
+                  printValue(next),
+                  parentNode.lastChild.previousSibling
+                );
+              }
+              if (next.done) {
+                parentNode.removeChild(parentNode.lastChild.previousSibling);
+                // remove last comma
+                if (parentNode.lastChild.previousSibling?.lastChild) {
+                  parentNode.lastChild.previousSibling.removeChild(
+                    parentNode.lastChild.previousSibling.lastChild
+                  );
+                }
+              }
             }
           });
         } else {
@@ -227,7 +231,9 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         }
       } else if (len > 0) {
         // remove last comma
-        parentNode.lastChild.removeChild(parentNode.lastChild.lastChild);
+        if (parentNode.lastChild && parentNode.lastChild.lastChild) {
+          parentNode.lastChild.removeChild(parentNode.lastChild.lastChild);
+        }
       }
       parentNode.appendChild(document.createTextNode(endDelimInner));
       return parentNode;
@@ -284,7 +290,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
         }
         event.stopPropagation();
         const newParentNode = this.processData(data, !expanded, false);
-        parentNode.parentNode.replaceChild(newParentNode, parentNode);
+        parentNode?.parentNode?.replaceChild(newParentNode, parentNode);
       });
     }
     if (!expanded) {
