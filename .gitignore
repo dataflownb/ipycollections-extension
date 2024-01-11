@@ -1,11 +1,20 @@
 *.bundle.*
 lib/
 node_modules/
+*.log
+.eslintcache
+.stylelintcache
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
+ipycollections/labextension
+# Version file is handled by hatchling
+ipycollections/_version.py
 
-*/labextension/*.tgz
+# Integration tests
+ui-tests/test-results/
+ui-tests/playwright-report/
+
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
 
@@ -56,6 +65,7 @@ htmlcov/
 .coverage.*
 .cache
 nosetests.xml
+coverage/
 coverage.xml
 *.cover
 .hypothesis/
@@ -107,3 +117,6 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python
+
+# OSX files
+.DS_Store
