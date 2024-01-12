@@ -15,3 +15,19 @@ div.ipycollections-field {
 span.ipycollections-collapsed {
     cursor: pointer;
 }
+
+.ipycollections-number {
+    color: var(--jp-mirror-editor-number-color);
+}
+
+.ipycollections-keyword {
+    color: var(--jp-mirror-editor-keyword-color);
+}
+
+.ipycollections-string {
+    color: var(--jp-mirror-editor-string-color);
+}
+
+.ipycollections-comment {
+    color: var(--jp-mirror-editor-comment-color);
+}

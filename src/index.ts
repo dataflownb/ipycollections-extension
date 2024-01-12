@@ -36,9 +36,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
     super();
     this._rendermime = rendermime;
     this._mimeType = options.mimeType;
-    this.addClass('CodeMirror');
-    this.addClass('cm-s-jupyter');
-    this.addClass('CodeMirror-lines');
+    this.addClass('jp-RenderedText')
     this.addClass(CLASS_NAME);
   }
 
@@ -149,7 +147,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
             document.createTextNode(`\u25BC ${startDelimInner}`)
           );
           const comment = span.appendChild(document.createElement('span'));
-          comment.className = 'cm-comment';
+          comment.className = 'ipycollections-comment';
           comment.textContent = ` # len=${len}`; // item${len == 1 ? '' : 's'}
         } else {
           // whole thing listens for clicks
@@ -242,14 +240,14 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
 
   numberFormatter(data: any, expanded = false, shallow = true) {
     const n = document.createElement('span');
-    n.className = 'cm-number';
+    n.className = 'ipycollections-number';
     n.textContent = data.toString();
     return n;
   }
 
   bigintFormatter(data: any, expanded = false, shallow = true) {
     const n = document.createElement('span');
-    n.className = 'cm-number';
+    n.className = 'ipycollections-number';
     n.textContent = data.v; // already a string
     return n;
   }
@@ -325,7 +323,7 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
   stringFormatter(data: any, expanded = false, shallow = true) {
     // have to deal with quotes inside of quotes thing
     const n = document.createElement('span');
-    n.className = 'cm-string';
+    n.className = 'ipycollections-string';
     if (data.includes("'")) {
       if (data.includes('"')) {
         // escape the "
@@ -341,14 +339,14 @@ export class OutputWidget extends Widget implements IRenderMime.IRenderer {
 
   booleanFormatter(data: any, expanded = false, shallow = true) {
     const n = document.createElement('span');
-    n.className = 'cm-keyword';
+    n.className = 'ipycollections-keyword';
     n.textContent = data ? 'True' : 'False';
     return n;
   }
 
   nullFormatter(data: any, expanded = false, shallow = true) {
     const n = document.createElement('span');
-    n.className = 'cm-keyword';
+    n.className = 'ipycollections-keyword';
     n.textContent = 'None';
     return n;
   }
