@@ -1,11 +1,11 @@
 # ipycollections
 
-[![Github Actions Status](git+https://github.com/dataflownb/ipycollections-extension.git/workflows/Build/badge.svg)](git+https://github.com/dataflownb/ipycollections-extension.git/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/dataflownb/ipycollections-extension.git/workflows/Build/badge.svg)](https://github.com/dataflownb/ipycollections-extension.git/actions/workflows/build.yml)
 A JupyterLab extension that provides a more interactive format for collections
 
 ## Requirements
 
-- JupyterLab >= 3.0
+- JupyterLab >= 4.0.0
 
 ## Install
 
@@ -111,7 +111,7 @@ jlpm test
 
 #### Integration tests
 
-This extension uses [Playwright](https://playwright.dev/docs/intro/) for the integration tests (aka user level tests).
+This extension uses [Playwright](https://playwright.dev/docs/intro) for the integration tests (aka user level tests).
 More precisely, the JupyterLab helper [Galata](https://github.com/jupyterlab/jupyterlab/tree/master/galata) is used to handle testing the extension in JupyterLab.
 
 More information are provided within the [ui-tests](./ui-tests/README.md) README.

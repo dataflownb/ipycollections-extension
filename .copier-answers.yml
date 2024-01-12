@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.2.4
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: dakoop@niu.edu
+author_name: David Koop
+has_binder: false
+has_settings: false
+kind: frontend
+labextension_name: '@dfnotebook/ipycollections-extension'
+project_short_description: A JupyterLab extension that provides a more interactive
+    format for collections
+python_name: ipycollections
+repository: https://github.com/dataflownb/ipycollections-extension.git
+test: true
+
