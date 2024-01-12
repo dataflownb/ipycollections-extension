@@ -33,9 +33,8 @@
    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime, IRenderMimeRegistry } from '@jupyterlab/rendermime';
 import { IMimeDocumentTracker, JupyterFrontEnd } from '@jupyterlab/application';
-import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
 import { WidgetTracker } from '@jupyterlab/apputils';
 import { DocumentRegistry, MimeDocument, MimeDocumentFactory } from '@jupyterlab/docregistry';
 import { LabIcon } from '@jupyterlab/ui-components';

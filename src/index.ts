@@ -1,5 +1,4 @@
-import { IRenderMimeRegistry } from '@jupyterlab/rendermime';
-import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+import { IRenderMimeRegistry, IRenderMime } from '@jupyterlab/rendermime';
 
 import { JSONObject } from '@lumino/coreutils';
 
